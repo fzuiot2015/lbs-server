@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Api(tags = "油价查询", description = "油价查询接口")
+@Api(tags = "油价查询")
 @RestController
 @RequestMapping("/oil")
 public class OilPriceController {

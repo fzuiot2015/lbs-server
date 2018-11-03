@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-@Api(tags = "保险", description = "保险接口")
+@Api(tags = "保险记录")
 @RestController
 @RequestMapping("/insurance")
 public class InsuranceController {

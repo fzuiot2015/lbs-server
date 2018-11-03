@@ -2,19 +2,18 @@ package edu.fzu.lbs.service;
 
 import edu.fzu.lbs.config.exception.MyException;
 import edu.fzu.lbs.config.exception.ResultEnum;
-import edu.fzu.lbs.dao.UserAuthDao;
 import edu.fzu.lbs.dao.UserDao;
 import edu.fzu.lbs.entity.dto.ResultDTO;
 import edu.fzu.lbs.entity.param.PageParam;
 import edu.fzu.lbs.entity.param.UserParam;
 import edu.fzu.lbs.entity.po.User;
-import edu.fzu.lbs.entity.po.UserAuth;
 import edu.fzu.lbs.util.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import sun.security.util.Password;
 
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
@@ -31,13 +30,6 @@ public class UserService {
     @Autowired
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
-    }
-
-    private UserAuthDao userAuthDao;
-
-    @Autowired
-    public void setUserAuthDao(UserAuthDao userAuthDao) {
-        this.userAuthDao = userAuthDao;
     }
 
 
@@ -80,15 +72,14 @@ public class UserService {
         userDao.deleteById(id);
     }
 
-    public ResultDTO<String> login(UserAuth userAuth) {
-        String username = userAuth.getUsername();
-        Optional<UserAuth> userOptional = userAuthDao.findByUsername(username);
+    public ResultDTO<String> login(String username, String pass) {
+        Optional<User> userOptional = userDao.findByUsername(username);
         if (!userOptional.isPresent()) {
             return ResultDTO.error(ResultEnum.LOGIN_ERROR);
         }
 
         String password = userOptional.get().getPassword();
-        if (password.equals(userAuth.getPassword())) {
+        if (password.equals(pass)) {
             String token = JwtTokenUtil.createToken(username, password);
             return new ResultDTO<>(token);
         } else {
@@ -97,13 +88,12 @@ public class UserService {
     }
 
     @Transactional
-    public void register(User user, UserAuth userAuth)  {
+    public void register(User user) {
         String username = user.getUsername();
-        Optional<UserAuth> userAuthOptional = userAuthDao.findByUsername(username);
         Optional<User> userOptional = userDao.findByUsername(username);
 
         //判断用户名是否已经注册
-        if (userAuthOptional.isPresent() || userOptional.isPresent()) {
+        if (userOptional.isPresent()) {
             throw new MyException(ResultEnum.DUPLICATE_ID);
         }
 
@@ -120,16 +110,14 @@ public class UserService {
 //        }
 
         userDao.saveAndFlush(user);
-        userAuthDao.saveAndFlush(userAuth);
     }
 
     @Transactional
-    public void update(User user, UserAuth userAuth)  {
+    public void update(User user) {
         if (user.getId() == null) {
-            register(user, userAuth);
+            register(user);
         } else {
             userDao.saveAndFlush(user);
-            userAuthDao.saveAndFlush(userAuth);
         }
     }
 

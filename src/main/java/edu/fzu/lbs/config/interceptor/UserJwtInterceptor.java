@@ -3,8 +3,8 @@ package edu.fzu.lbs.config.interceptor;
 
 import edu.fzu.lbs.config.exception.MyException;
 import edu.fzu.lbs.config.exception.ResultEnum;
-import edu.fzu.lbs.dao.UserAuthDao;
-import edu.fzu.lbs.entity.po.UserAuth;
+import edu.fzu.lbs.dao.UserDao;
+import edu.fzu.lbs.entity.po.User;
 import edu.fzu.lbs.util.JwtTokenUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,11 +21,11 @@ public class UserJwtInterceptor implements HandlerInterceptor {
 
     private Logger logger = LoggerFactory.getLogger(UserJwtInterceptor.class);
 
-    private UserAuthDao userAuthDao;
+    private UserDao userDao;
 
     @Autowired
-    public void setUserAuthDao(UserAuthDao userAuthDao) {
-        this.userAuthDao = userAuthDao;
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
     }
 
     @Override
@@ -37,15 +37,15 @@ public class UserJwtInterceptor implements HandlerInterceptor {
         }
 
         String username = JwtTokenUtil.getUsername(token);
-        Optional<UserAuth> userOptional = userAuthDao.findByUsername(username);
+        Optional<User> userOptional = userDao.findByUsername(username);
         if (!userOptional.isPresent()) {
             throw new MyException(ResultEnum.INCORRECT_TOKEN);
         }
-        UserAuth userAuth = userOptional.get();
-        String password = userAuth.getPassword();
+        User user = userOptional.get();
+        String password = user.getPassword();
         JwtTokenUtil.verifyToken(token, username, password);
 
-        Long userId = userAuth.getId();
+        Long userId = user.getId();
         logger.info("userId:" + userId.toString());
         request.setAttribute("userId", userId);
         return true;

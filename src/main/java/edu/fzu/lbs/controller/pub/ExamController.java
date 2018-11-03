@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Api(tags = "驾照考题", description = "驾照考题接口")
+@Api(tags = "驾照考题")
 @RestController
 @RequestMapping("/exam")
 public class ExamController {

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Api(tags = "车辆", description = "车辆接口")
+@Api(tags = "车辆")
 @RestController
 @RequestMapping("/car")
 public class CarController {

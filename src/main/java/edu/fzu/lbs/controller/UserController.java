@@ -5,7 +5,6 @@ import edu.fzu.lbs.entity.dto.ResultDTO;
 import edu.fzu.lbs.entity.param.PageParam;
 import edu.fzu.lbs.entity.param.UserParam;
 import edu.fzu.lbs.entity.po.User;
-import edu.fzu.lbs.entity.po.UserAuth;
 import edu.fzu.lbs.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -32,20 +31,20 @@ public class UserController {
 
     @ApiOperation(value = "登录", notes = "通过账号密码登录，登录成功则返回对应的Token")
     @PostMapping("/login")
-    public ResultDTO login(@Valid UserAuth userAuth) {
-        return userService.login(userAuth);
+    public ResultDTO login(@RequestParam String username, @RequestParam String password) {
+        return userService.login(username, password);
     }
 
     @ApiOperation(value = "注册", notes = "注册新用户")
     @PostMapping("/register")
-    public ResultDTO register(@Valid User user, @Valid UserAuth userAuth) throws IOException {
-        userService.register(user, userAuth);
+    public ResultDTO register(@RequestBody @Valid User user) throws IOException {
+        userService.register(user);
         return new ResultDTO();
     }
 
     @PutMapping
-    public ResultDTO put(@RequestBody @Valid User user, @RequestBody @Valid UserAuth userAuth) {
-        userService.update(user, userAuth);
+    public ResultDTO put(@RequestBody @Valid User user) {
+        userService.update(user);
         return new ResultDTO();
     }
 

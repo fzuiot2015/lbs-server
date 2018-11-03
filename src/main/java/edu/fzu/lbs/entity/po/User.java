@@ -18,19 +18,21 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ApiModelProperty(value = "账号",required = true)
+    @ApiModelProperty(value = "账号", required = true)
     private String username;
 
-    @ApiModelProperty(value = "姓名",required = true)
+    private String password;
+
+    @ApiModelProperty(value = "姓名", required = true)
     private String name;
 
-    @ApiModelProperty(value = "电话",required = true)
+    @ApiModelProperty(value = "电话", required = true)
     private String phone;
 
-    @ApiModelProperty(value = "住址",required = true)
+    @ApiModelProperty(value = "住址", required = true)
     private String address;
 
-    @ApiModelProperty(value = "驾驶证号",required = true)
+    @ApiModelProperty(value = "驾驶证号", required = true)
     private String driverLicense;
 
 }

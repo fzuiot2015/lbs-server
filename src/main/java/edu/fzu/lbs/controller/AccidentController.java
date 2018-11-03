@@ -5,6 +5,7 @@ import edu.fzu.lbs.entity.param.AccidentParam;
 import edu.fzu.lbs.entity.param.PageParam;
 import edu.fzu.lbs.entity.po.Accident;
 import edu.fzu.lbs.service.AccidentService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.data.domain.Page;
@@ -16,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+@Api(tags = "事故记录")
 @RestController
 @RequestMapping("/accident")
 public class AccidentController {
