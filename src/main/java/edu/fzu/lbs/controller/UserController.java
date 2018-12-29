@@ -36,7 +36,17 @@ public class UserController {
 
     @ApiOperation(value = "注册", notes = "注册新用户")
     @PostMapping("/register")
-    public ResultDTO register(@RequestBody @Valid User user) {
+    public ResultDTO register(@RequestParam String username,
+                              @RequestParam String password,
+                              @RequestParam String name,
+                              @RequestParam String phone,
+                              @RequestParam String driverLicense) {
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password);
+        user.setName(name);
+        user.setPhone(phone);
+        user.setDriverLicense(driverLicense);
         return userService.register(user);
     }
 
