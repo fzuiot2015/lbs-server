@@ -1,6 +1,7 @@
 package edu.fzu.lbs.controller;
 
 import edu.fzu.lbs.entity.dto.ResultDTO;
+import edu.fzu.lbs.entity.po.Accident;
 import edu.fzu.lbs.entity.po.Car;
 import edu.fzu.lbs.entity.po.Insurance;
 import edu.fzu.lbs.entity.po.User;
@@ -65,4 +66,9 @@ public class PersonalController {
         return new ResultDTO<>(insuranceList);
     }
 
+    @GetMapping("/accident")
+    public ResultDTO<List<Accident>> getAccident(Long userId) {
+        List<Accident> accidentList = accidentService.findByUserId(userId);
+        return new ResultDTO<>(accidentList);
+    }
 }

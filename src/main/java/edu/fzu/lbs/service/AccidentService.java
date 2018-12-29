@@ -68,4 +68,8 @@ public class AccidentService implements CrudService<Accident, AccidentParam> {
         accidentDao.deleteById(id);
     }
 
+    public List<Accident> findByUserId(Long userId){
+        return accidentDao.findByUserId(userId);
+    }
+
 }
