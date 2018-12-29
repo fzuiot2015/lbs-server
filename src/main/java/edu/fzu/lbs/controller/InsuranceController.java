@@ -28,16 +28,6 @@ public class InsuranceController {
         this.insuranceService = insuranceService;
     }
 
-    /**
-     * 完成由表单到JavaBean属性的绑定
-     * 日期参数格式化配置
-     */
-    @InitBinder
-    protected void initBinder(WebDataBinder binder) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
-    }
-
     @GetMapping
     public ResultDTO<List<Insurance>> query(InsuranceParam insuranceParam, PageParam pageParam) {
         Page<Insurance> page = insuranceService.getList(insuranceParam, pageParam);

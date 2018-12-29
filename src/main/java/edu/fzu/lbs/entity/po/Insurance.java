@@ -1,5 +1,6 @@
 package edu.fzu.lbs.entity.po;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -30,10 +31,12 @@ public class Insurance {
     @ApiModelProperty(value = "保险电话", required = true)
     private String insurancePhone;
 
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
     @ApiModelProperty(value = "开始时间", required = true)
     @Temporal(TemporalType.DATE)
     private Date startTime;
 
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
     @ApiModelProperty(value = "结束时间", required = true)
     @Temporal(TemporalType.DATE)
     private Date endTime;

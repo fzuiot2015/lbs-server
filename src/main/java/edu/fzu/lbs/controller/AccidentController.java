@@ -28,16 +28,6 @@ public class AccidentController {
         this.accidentService = accidentService;
     }
 
-    /**
-     * 完成由表单到JavaBean属性的绑定
-     * 日期参数格式化配置
-     */
-    @InitBinder
-    protected void initBinder(WebDataBinder binder) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
-    }
-
     @GetMapping
     public ResultDTO<List<Accident>> query(AccidentParam accidentParam, PageParam pageParam) {
         Page<Accident> page = accidentService.getList(accidentParam, pageParam);

@@ -1,5 +1,6 @@
 package edu.fzu.lbs.entity.po;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -21,6 +22,8 @@ public class Accident {
     @ApiModelProperty(value = "用户ID", required = true)
     private Long userId;
 
+    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
+    @Temporal(TemporalType.TIMESTAMP)
     @ApiModelProperty(value = "时间", required = true)
     private Date time;
 
