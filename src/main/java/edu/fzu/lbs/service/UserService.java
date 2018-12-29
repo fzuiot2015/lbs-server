@@ -94,28 +94,19 @@ public class UserService {
     }
 
     @Transactional
-    public void register(User user) {
+    public ResultDTO<LoginResult> register(User user) {
         String username = user.getUsername();
+        String password = user.getPassword();
         Optional<User> userOptional = userDao.findByUsername(username);
 
         //判断用户名是否已经注册
         if (userOptional.isPresent()) {
             throw new MyException(ResultEnum.DUPLICATE_ID);
         }
-
-        //TODO:完善注册流程
-
-//        //注册百度鹰眼设备
-//        ResultDTO resultDTO = new HttpPostUtil("http://yingyan.baidu.com/api/v3/entity/add")
-//                .addParam("ak", APP_KEY_BAIDU)
-//                .addParam("service_id", SERVICE_ID_EAGLE_EYE)
-//                .addParam("entity_name", username)
-//                .post();
-//        if (resultDTO.getStatus() != 0) {
-//            throw new MyException(ResultEnum.UN_KNOW_ERROR);
-//        }
-
         userDao.saveAndFlush(user);
+        String token = JwtTokenUtil.createToken(username, password);
+        LoginResult loginResult = new LoginResult(user.getId(), token);
+        return new ResultDTO<>(loginResult);
     }
 
     @Transactional

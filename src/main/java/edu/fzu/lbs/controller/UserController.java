@@ -37,8 +37,7 @@ public class UserController {
     @ApiOperation(value = "注册", notes = "注册新用户")
     @PostMapping("/register")
     public ResultDTO register(@RequestBody @Valid User user) {
-        userService.register(user);
-        return new ResultDTO();
+        return userService.register(user);
     }
 
     @PutMapping
@@ -74,7 +73,7 @@ public class UserController {
     }
 
     @GetMapping
-    public ResultDTO<User> getByUsername(String username){
+    public ResultDTO<User> getByUsername(String username) {
         User user = userService.getByUsername(username);
         return new ResultDTO<>(user);
     }
