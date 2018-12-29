@@ -17,11 +17,10 @@ public class InterceptorConfig implements WebMvcConfigurer {
         this.adminJwtInterceptor = adminJwtInterceptor;
     }
 
-
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //TODO:设置拦截地址
-        registry.addInterceptor(userJwtInterceptor).addPathPatterns("/personal/*");
+//        registry.addInterceptor(userJwtInterceptor).addPathPatterns("/personal/*");
 //        registry.addInterceptor(adminJwtInterceptor).addPathPatterns("/");
     }
 

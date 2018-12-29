@@ -35,7 +35,6 @@ public class CarController {
                             @RequestParam String vehicleType,
                             @RequestParam String engine,
                             @RequestParam String model) {
-        //TODO
         Car car = new Car();
         car.setUserId(userId);
         car.setVin(vin);
@@ -63,5 +62,4 @@ public class CarController {
         carService.deleteById(id);
         return new ResultDTO();
     }
-
 }

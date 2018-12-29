@@ -68,4 +68,8 @@ public class InsuranceService implements CrudService<Insurance, InsuranceParam> 
         insuranceDao.deleteById(id);
     }
 
+    public List<Insurance> findByUserId(Long userId) {
+        return insuranceDao.findByUserId(userId);
+    }
+
 }

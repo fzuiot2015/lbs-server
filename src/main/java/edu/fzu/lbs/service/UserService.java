@@ -3,6 +3,7 @@ package edu.fzu.lbs.service;
 import edu.fzu.lbs.config.exception.MyException;
 import edu.fzu.lbs.config.exception.ResultEnum;
 import edu.fzu.lbs.dao.UserDao;
+import edu.fzu.lbs.entity.dto.LoginResult;
 import edu.fzu.lbs.entity.dto.ResultDTO;
 import edu.fzu.lbs.entity.param.PageParam;
 import edu.fzu.lbs.entity.param.UserParam;
@@ -13,7 +14,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-import sun.security.util.Password;
 
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
@@ -32,8 +32,12 @@ public class UserService {
         this.userDao = userDao;
     }
 
+    public User getByUsername(String username) {
+        Optional<User> optional = userDao.findByUsername(username);
+        return optional.orElse(null);
+    }
 
-    public User get(Long id) {
+    public User getById(Long id) {
         Optional<User> optional = userDao.findById(id);
         return optional.orElse(null);
     }
@@ -72,16 +76,18 @@ public class UserService {
         userDao.deleteById(id);
     }
 
-    public ResultDTO<String> login(String username, String pass) {
+    public ResultDTO login(String username, String pass) {
         Optional<User> userOptional = userDao.findByUsername(username);
         if (!userOptional.isPresent()) {
             return ResultDTO.error(ResultEnum.LOGIN_ERROR);
         }
 
-        String password = userOptional.get().getPassword();
+        User user = userOptional.get();
+        String password = user.getPassword();
         if (password.equals(pass)) {
             String token = JwtTokenUtil.createToken(username, password);
-            return new ResultDTO<>(token);
+            LoginResult result = new LoginResult(user.getId(), token);
+            return new ResultDTO<>(result);
         } else {
             return ResultDTO.error(ResultEnum.LOGIN_ERROR);
         }

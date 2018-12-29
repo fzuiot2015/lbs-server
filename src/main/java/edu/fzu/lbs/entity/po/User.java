@@ -29,9 +29,6 @@ public class User {
     @ApiModelProperty(value = "电话", required = true)
     private String phone;
 
-    @ApiModelProperty(value = "住址", required = true)
-    private String address;
-
     @ApiModelProperty(value = "驾驶证号", required = true)
     private String driverLicense;
 

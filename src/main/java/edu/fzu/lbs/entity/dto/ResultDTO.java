@@ -19,7 +19,7 @@ public class ResultDTO<T> {
     private int status;
 
     @ApiModelProperty("状态信息")
-    @SerializedName(value = "message", alternate = "reason")
+    @SerializedName(value = "message", alternate = {"reason","msg"})
     private String message;
 
     @ApiModelProperty("返回内容")

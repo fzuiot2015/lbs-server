@@ -1,6 +1,7 @@
 package edu.fzu.lbs.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import edu.fzu.lbs.entity.dto.ResultDTO;
 
 import java.io.BufferedReader;
@@ -64,7 +65,9 @@ public class HttpGetUtil {
             stringBuilder.append(string);
         }
 
-        return stringBuilder.toString();
+        String json = stringBuilder.toString();
+        System.out.println(json);
+        return json;
     }
 
     /**
@@ -74,10 +77,8 @@ public class HttpGetUtil {
      */
     public ResultDTO get() throws IOException {
         String jsonRes = getJson();
-        System.out.println(jsonRes);
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(jsonRes, ResultDTO.class);
+        Gson gson = new Gson();
+        return gson.fromJson(jsonRes, ResultDTO.class);
     }
 
 }

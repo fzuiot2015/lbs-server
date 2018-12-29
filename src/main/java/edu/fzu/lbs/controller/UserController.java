@@ -14,7 +14,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.io.IOException;
 import java.util.List;
 
 @Api(tags = "用户")
@@ -31,13 +30,13 @@ public class UserController {
 
     @ApiOperation(value = "登录", notes = "通过账号密码登录，登录成功则返回对应的Token")
     @PostMapping("/login")
-    public ResultDTO login(@RequestParam String username, @RequestParam String password) {
-        return userService.login(username, password);
+    public ResultDTO login(@RequestParam String username, @RequestParam String pass) {
+        return userService.login(username, pass);
     }
 
     @ApiOperation(value = "注册", notes = "注册新用户")
     @PostMapping("/register")
-    public ResultDTO register(@RequestBody @Valid User user) throws IOException {
+    public ResultDTO register(@RequestBody @Valid User user) {
         userService.register(user);
         return new ResultDTO();
     }
@@ -54,8 +53,8 @@ public class UserController {
         return new ResultDTO();
     }
 
-    @ApiOperation(value = "获取列表", notes = "可根据查询条件及分页参数获取事故记录列表")
-    @GetMapping
+    @ApiOperation(value = "获取列表", notes = "可根据查询条件及分页参数获取用户信息列表")
+    @GetMapping("/list")
     public ResultDTO<List<User>> query(UserParam userParam, PageParam pageParam) {
         Page<User> page = userService.getList(userParam, pageParam);
         return new ResultDTO<>(page.getContent(), page.getNumber(), page.getTotalPages(), page.getTotalElements());
@@ -69,8 +68,14 @@ public class UserController {
     @ApiOperation(value = "根据ID获取实体", notes = "通过指定ID获取实体信息")
     @ApiImplicitParam(name = "id", value = "ID", required = true)
     @GetMapping("/{id}")
-    public ResultDTO<User> get(@PathVariable("id") Long id) {
-        User user = userService.get(id);
+    public ResultDTO<User> getById(@PathVariable("id") Long id) {
+        User user = userService.getById(id);
+        return new ResultDTO<>(user);
+    }
+
+    @GetMapping
+    public ResultDTO<User> getByUsername(String username){
+        User user = userService.getByUsername(username);
         return new ResultDTO<>(user);
     }
 
