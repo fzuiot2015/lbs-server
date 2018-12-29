@@ -7,10 +7,14 @@ import edu.fzu.lbs.entity.po.Insurance;
 import edu.fzu.lbs.service.InsuranceService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.data.domain.Page;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Api(tags = "保险记录")
@@ -22,6 +26,16 @@ public class InsuranceController {
     @Autowired
     public void setInsuranceService(InsuranceService insuranceService) {
         this.insuranceService = insuranceService;
+    }
+
+    /**
+     * 完成由表单到JavaBean属性的绑定
+     * 日期参数格式化配置
+     */
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
 
     @GetMapping

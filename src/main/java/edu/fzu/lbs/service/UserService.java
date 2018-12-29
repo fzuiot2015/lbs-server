@@ -44,7 +44,6 @@ public class UserService {
 
     public Page<User> getList(UserParam userParam, PageParam pageParam) {
         Pageable pageable = pageParam.toPageRequest();
-
         if (userParam == null) {
             return userDao.findAll(pageable);
         }

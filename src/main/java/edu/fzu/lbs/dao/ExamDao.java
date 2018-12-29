@@ -8,6 +8,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface ExamDao extends JpaRepository<Exam, Long> {
+    /**
+     * @param subject  科目类别
+     * @param type     驾驶证类型
+     * @param pageable 分页信息
+     * @return
+     */
     Page<Exam> findBySubjectAndType(String subject, String type, Pageable pageable);
 
     /**
@@ -16,6 +22,7 @@ public interface ExamDao extends JpaRepository<Exam, Long> {
      * @param subject 科目类别
      * @param type    驾驶证类别
      */
-    @Query(value = "SELECT * FROM exam WHERE subject=:subject AND type=:type ORDER BY RAND() LIMIT 1", nativeQuery = true)
+    @Query(value = "SELECT * FROM exam WHERE subject=:subject AND type=:type ORDER BY RAND() LIMIT 1"
+            , nativeQuery = true)
     Exam get(@Param("subject") String subject, @Param("type") String type);
 }
