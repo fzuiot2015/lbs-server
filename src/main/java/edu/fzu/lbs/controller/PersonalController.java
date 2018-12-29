@@ -4,6 +4,7 @@ import edu.fzu.lbs.entity.dto.ResultDTO;
 import edu.fzu.lbs.entity.po.Car;
 import edu.fzu.lbs.entity.po.Insurance;
 import edu.fzu.lbs.entity.po.User;
+import edu.fzu.lbs.service.AccidentService;
 import edu.fzu.lbs.service.CarService;
 import edu.fzu.lbs.service.InsuranceService;
 import edu.fzu.lbs.service.UserService;
@@ -37,6 +38,13 @@ public class PersonalController {
     @Autowired
     public void setInsuranceService(InsuranceService insuranceService) {
         this.insuranceService = insuranceService;
+    }
+
+    private AccidentService accidentService;
+
+    @Autowired
+    public void setAccidentService(AccidentService accidentService) {
+        this.accidentService = accidentService;
     }
 
     @GetMapping("/user")
