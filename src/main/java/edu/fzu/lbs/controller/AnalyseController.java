@@ -5,12 +5,16 @@ import edu.fzu.lbs.entity.dto.ResultDTO;
 import edu.fzu.lbs.entity.po.InsuranceCompany;
 import edu.fzu.lbs.entity.vo.Series;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 保险价格分析接口
+ */
 @RequestMapping("/analyse")
 @RestController
 public class AnalyseController {
@@ -22,18 +26,24 @@ public class AnalyseController {
         this.insuranceCompanyDao = insuranceCompanyDao;
     }
 
-    @RequestMapping
-    public ResultDTO<List<Series>> analyse(Integer personNum, Float price) {
+    /**
+     * 获取保险价格分析结果
+     *
+     * @param personNum 车载人数
+     * @param price     车辆价格
+     * @return Series对象集合，可直接用于Echart的Series字段
+     */
+    @GetMapping
+    public ResultDTO<List<Series>> get(Integer personNum, Float price) {
         List<Series> seriesList = new ArrayList<>();
-
         List<InsuranceCompany> insuranceCompanies = insuranceCompanyDao.findAll();
-
         List<Float> lossList = new ArrayList<>();
         List<Float> burglaryList = new ArrayList<>();
         List<Float> glassList = new ArrayList<>();
         List<Float> fireList = new ArrayList<>();
         List<Float> personList = new ArrayList<>();
 
+        //遍历保险公司集合分别计算保险价格
         for (InsuranceCompany insuranceCompany : insuranceCompanies) {
             lossList.add(insuranceCompany.getLoss() * price);
             burglaryList.add(insuranceCompany.getBurglary() * price);

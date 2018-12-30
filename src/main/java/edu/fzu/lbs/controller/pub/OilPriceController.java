@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-
 /**
  * 油价查询接口
  */
@@ -27,6 +26,7 @@ public class OilPriceController {
 
     /**
      * 根据省份查询油价
+     *
      * @param province 省份
      * @return 油价信息
      */
@@ -37,6 +37,7 @@ public class OilPriceController {
 
     /**
      * 查询接口支持的省份参数
+     *
      * @return 支持的省份集合
      */
     @GetMapping("/province")
