@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.net.SocketTimeoutException;
 
 /**
- * 用于捕获异常
+ * 用于捕获异常并返回对应的反馈结果
  */
 @RestControllerAdvice
 public class MyExceptionHandler {

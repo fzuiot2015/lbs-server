@@ -11,8 +11,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * 车辆信息Service
+ */
 @Service
-public class CarService implements CrudService<Car, Car> {
+public class CarService {
     private CarDao carDao;
 
     @Autowired
@@ -20,7 +23,13 @@ public class CarService implements CrudService<Car, Car> {
         this.carDao = carDao;
     }
 
-    @Override
+    /**
+     * 根据条件查询车辆信息
+     *
+     * @param car       车辆查询参数
+     * @param pageParam 分页参数
+     * @return 车辆信息分页对象
+     */
     public Page<Car> getList(Car car, PageParam pageParam) {
         Pageable pageable = pageParam.toPageRequest();
         Page<Car> page;
@@ -33,16 +42,30 @@ public class CarService implements CrudService<Car, Car> {
         return page;
     }
 
-    @Override
+    /**
+     * 保存或更新一条车辆信息
+     *
+     * @param car 车辆信息
+     */
     public void update(Car car) {
         carDao.saveAndFlush(car);
     }
 
-    @Override
+    /**
+     * 根据id删除车辆信息
+     *
+     * @param id 车辆id
+     */
     public void deleteById(Long id) {
         carDao.deleteById(id);
     }
 
+    /**
+     * 根据车主用户id查询车辆信息
+     *
+     * @param userId 车主用户 id
+     * @return 车辆信息集合
+     */
     public List<Car> findByUserId(Long userId) {
         return carDao.findByUserId(userId);
     }

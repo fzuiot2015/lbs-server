@@ -6,9 +6,6 @@ import edu.fzu.lbs.entity.param.PageParam;
 import edu.fzu.lbs.entity.param.UserParam;
 import edu.fzu.lbs.entity.po.User;
 import edu.fzu.lbs.service.UserService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +13,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-@Api(tags = "用户")
+
+/**
+ * 用户接口
+ */
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -28,13 +28,28 @@ public class UserController {
         this.userService = userService;
     }
 
-    @ApiOperation(value = "登录", notes = "通过账号密码登录，登录成功则返回对应的Token")
+    /**
+     * 用户登录
+     *
+     * @param username 用户名
+     * @param pass     密码
+     * @return 若登录成功，结果包含token
+     */
     @PostMapping("/login")
     public ResultDTO login(@RequestParam String username, @RequestParam String pass) {
         return userService.login(username, pass);
     }
 
-    @ApiOperation(value = "注册", notes = "注册新用户")
+    /**
+     * 用户注册
+     *
+     * @param username      用户名
+     * @param password      密码
+     * @param name          姓名
+     * @param phone         手机号
+     * @param driverLicense 驾驶证号
+     * @return 若登录成功，结果包含token
+     */
     @PostMapping("/register")
     public ResultDTO register(@RequestParam String username,
                               @RequestParam String password,
@@ -50,43 +65,65 @@ public class UserController {
         return userService.register(user);
     }
 
+    /**
+     * 保存或更新一条用户信息
+     *
+     * @param user 用户对象
+     * @return
+     */
     @PutMapping
     public ResultDTO put(@RequestBody @Valid User user) {
         userService.update(user);
         return new ResultDTO();
     }
 
+    /**
+     * 删除一条用户信息
+     *
+     * @param id 用户id
+     * @return
+     */
     @DeleteMapping("/{id}")
     public ResultDTO delete(@PathVariable Long id) {
         userService.deleteById(id);
         return new ResultDTO();
     }
 
-    @ApiOperation(value = "获取列表", notes = "可根据查询条件及分页参数获取用户信息列表")
+
+    /**
+     * 根据查询条件及分页参数获取用户信息列表
+     *
+     * @param userParam 用户查询参数
+     * @param pageParam 分页参数
+     * @return 用户信息集合
+     */
     @GetMapping("/list")
-    public ResultDTO<List<User>> query(UserParam userParam, PageParam pageParam) {
+    public ResultDTO<List<User>> list(UserParam userParam, PageParam pageParam) {
         Page<User> page = userService.getList(userParam, pageParam);
         return new ResultDTO<>(page.getContent(), page.getNumber(), page.getTotalPages(), page.getTotalElements());
     }
 
     /**
-     * 通过指定ID获取实体信息
+     * 通过指定ID获取用户信息
      *
-     * @param id 实体ID
+     * @param id 用户ID
+     * @return 用户信息
      */
-    @ApiOperation(value = "根据ID获取实体", notes = "通过指定ID获取实体信息")
-    @ApiImplicitParam(name = "id", value = "ID", required = true)
     @GetMapping("/{id}")
     public ResultDTO<User> getById(@PathVariable("id") Long id) {
         User user = userService.getById(id);
         return new ResultDTO<>(user);
     }
 
+    /**
+     * 通过用户名获取用户信息
+     *
+     * @param username 用户名
+     * @return 用户信息
+     */
     @GetMapping
     public ResultDTO<User> getByUsername(String username) {
         User user = userService.getByUsername(username);
         return new ResultDTO<>(user);
     }
-
-    // TODO: 2018/11/1 PUT方法
 }

@@ -1,43 +1,56 @@
 package edu.fzu.lbs.entity.po;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-@ApiModel(description = "保险信息")
+/**
+ * 保险记录
+ */
 @Data
 @Entity
 @Table(name = "insurance")
 public class Insurance {
+    /**
+     * 保险记录id
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ApiModelProperty("用户ID")
+    /**
+     * 用户ID
+     */
     private Long userId;
 
-    @ApiModelProperty(value = "保险公司", required = true)
+    /**
+     * 保险公司
+     */
     private String insurer;
 
-    @ApiModelProperty(value = "保单号", required = true)
+    /**
+     * 保单号
+     */
     private String policyId;
 
-    @ApiModelProperty(value = "保险电话", required = true)
+    /**
+     * 保险电话
+     */
     private String insurancePhone;
 
-    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
-    @ApiModelProperty(value = "开始时间", required = true)
+    /**
+     * 开始时间
+     */
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     private Date startTime;
 
-    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
-    @ApiModelProperty(value = "结束时间", required = true)
+    /**
+     * 结束时间
+     */
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     private Date endTime;
 }

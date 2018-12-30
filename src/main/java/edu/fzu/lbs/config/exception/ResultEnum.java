@@ -17,7 +17,14 @@ public enum ResultEnum {
     ID_ERROR(108, "ID错误"),
     ;
 
+    /**
+     * 状态码
+     */
     private int status;
+
+    /**
+     * 状态消息
+     */
     private String message;
 
     ResultEnum(int status, String message) {

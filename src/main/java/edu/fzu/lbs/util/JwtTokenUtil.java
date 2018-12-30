@@ -8,6 +8,9 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * JWT工具类
+ */
 public class JwtTokenUtil {
 
     /**

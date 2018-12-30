@@ -1,37 +1,45 @@
 package edu.fzu.lbs.entity.po;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 /**
- * 油价数据POJO
+ * 油价信息
  */
-@ApiModel(description = "油价")
 @Data
 @Entity
 @Table(name = "oil_price")
 public class OilPrice {
+    /**
+     * 油价信息id
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ApiModelProperty("省份")
-    private String province;    //省份
+    /**
+     * 省份
+     */
+    private String province;
 
-    @ApiModelProperty("0号柴油价格")
-    private Float dieselOil0;        //0号柴油价格
+    /**
+     * 0号柴油价格
+     */
+    private Float dieselOil0;
 
-    @ApiModelProperty("90号汽油价格")
-    private Float gasoline90;       //90号汽油价格
+    /**
+     * 90号汽油价格
+     */
+    private Float gasoline90;
 
-    @ApiModelProperty("93号汽油价格")
-    private Float gasoline93;       //93号汽油价格
+    /**
+     * 93号汽油价格
+     */
+    private Float gasoline93;
 
-    @ApiModelProperty("97号汽油价格")
-    private Float gasoline97;       //97号汽油价格
+    /**
+     * 97号汽油价格
+     */
+    private Float gasoline97;
 }

@@ -7,12 +7,17 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+/**
+ * 驾照考题DAO
+ */
 public interface ExamDao extends JpaRepository<Exam, Long> {
     /**
+     * 根据科目类别和驾驶证类型查询驾照考题
+     *
      * @param subject  科目类别
      * @param type     驾驶证类型
      * @param pageable 分页信息
-     * @return
+     * @return 驾照考题分页对象
      */
     Page<Exam> findBySubjectAndType(String subject, String type, Pageable pageable);
 
@@ -21,6 +26,7 @@ public interface ExamDao extends JpaRepository<Exam, Long> {
      *
      * @param subject 科目类别
      * @param type    驾驶证类别
+     * @return 驾照考题对象
      */
     @Query(value = "SELECT * FROM exam WHERE subject=:subject AND type=:type ORDER BY RAND() LIMIT 1"
             , nativeQuery = true)

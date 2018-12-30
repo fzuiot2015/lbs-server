@@ -1,38 +1,50 @@
 package edu.fzu.lbs.entity.po;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
-@ApiModel(description = "车辆")
+/**
+ * 车辆信息
+ */
 @Data
 @Entity
 @Table(name = "car")
 public class Car {
+    /**
+     * 车辆id
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ApiModelProperty("用户ID")
+    /**
+     * 车主用户ID
+     */
     private Long userId;
 
-    @ApiModelProperty(value = "VIN码", required = true)
+    /**
+     * VIN码
+     */
     private String vin;
 
-    @ApiModelProperty(value = "车牌号", required = true)
+    /**
+     * 车牌号
+     */
     private String plate;
 
-    @ApiModelProperty(value = "车辆类型", required = true)
+    /**
+     * 车辆类型
+     */
     private String vehicleType;
 
-    @ApiModelProperty(value = "发动机号", required = true)
+    /**
+     * 发动机号
+     */
     private String engine;
 
-    @ApiModelProperty(value = "车型", required = true)
+    /**
+     * 车型
+     */
     private String model;
 }

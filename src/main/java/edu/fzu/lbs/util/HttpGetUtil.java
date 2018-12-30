@@ -1,6 +1,5 @@
 package edu.fzu.lbs.util;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import edu.fzu.lbs.entity.dto.ResultDTO;
 
@@ -29,6 +28,7 @@ public class HttpGetUtil {
      *
      * @param key   参数名
      * @param value 参数值
+     * @return 增加参数后的HttpGetUtil本身
      */
     public HttpGetUtil addParam(String key, String value) {
         if (value == null || value.isEmpty()) {

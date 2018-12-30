@@ -16,8 +16,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * 保险记录Service
+ */
 @Service
-public class InsuranceService implements CrudService<Insurance, InsuranceParam> {
+public class InsuranceService {
     private InsuranceDao insuranceDao;
 
     @Autowired
@@ -25,10 +28,16 @@ public class InsuranceService implements CrudService<Insurance, InsuranceParam> 
         this.insuranceDao = insuranceDao;
     }
 
+    /**
+     * 根据条件查询保险记录
+     *
+     * @param insuranceParam 保险记录查询参数
+     * @param pageParam      分页参数
+     * @return 保险记录集合
+     */
     public Page<Insurance> getList(InsuranceParam insuranceParam, PageParam pageParam) {
         Pageable pageable = pageParam.toPageRequest();
 
-        //FIXME:NULL判断失效
         if (insuranceParam == null) {
             return insuranceDao.findAll(pageable);
         }
@@ -60,14 +69,30 @@ public class InsuranceService implements CrudService<Insurance, InsuranceParam> 
         return insuranceDao.findAll(specification, pageable);
     }
 
+    /**
+     * 保存或更新一条保险记录
+     *
+     * @param insurance 保险记录
+     */
     public void update(Insurance insurance) {
         insuranceDao.saveAndFlush(insurance);
     }
 
+    /**
+     * 根据id删除一条保险记录
+     *
+     * @param id 保险记录id
+     */
     public void deleteById(Long id) {
         insuranceDao.deleteById(id);
     }
 
+    /**
+     * 根据用户id查询保险记录
+     *
+     * @param userId 用户id
+     * @return 保险记录
+     */
     public List<Insurance> findByUserId(Long userId) {
         return insuranceDao.findByUserId(userId);
     }
