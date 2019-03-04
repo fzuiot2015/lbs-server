@@ -43,4 +43,18 @@ public class User {
      */
     private String driverLicense;
 
+    /**
+     * 血型
+     */
+    private String bloodGroup;
+
+    /**
+     * 病史
+     */
+    private String medicalHistory;
+
+    /**
+     * 过敏史
+     */
+    private String allergicHistory;
 }
