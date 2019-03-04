@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 /**
  * 用于发送HTTP GET请求
@@ -56,7 +57,7 @@ public class HttpGetUtil {
         HttpURLConnection connection = (HttpURLConnection) httpUrl.openConnection();
         connection.setRequestMethod("GET");
         connection.setReadTimeout(50000);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8));
 
         String string;
         StringBuilder stringBuilder = new StringBuilder();

@@ -12,7 +12,6 @@ import java.util.Date;
  * JWT工具类
  */
 public class JwtTokenUtil {
-
     /**
      * 根据用户名和密码生成相应 Token
      * 其中用户名作为有效负载中的声明，密码作为加密密钥

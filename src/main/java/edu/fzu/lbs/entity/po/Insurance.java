@@ -47,9 +47,9 @@ public class Insurance {
     @Temporal(TemporalType.DATE)
     private Date startTime;
 
-    /**
-     * 结束时间
-     */
+        /**
+         * 结束时间
+         */
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     private Date endTime;

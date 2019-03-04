@@ -7,8 +7,15 @@ import lombok.Data;
  */
 @Data
 public class LoginResult {
-    Long userId;    //用户id
-    String token;   //token
+    /**
+     * 用户id
+     */
+    private Long userId;
+
+    /**
+     * token令牌
+     */
+    private String token;
 
     public LoginResult(Long userId, String token) {
         this.userId = userId;

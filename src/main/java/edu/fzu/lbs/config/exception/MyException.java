@@ -15,5 +15,4 @@ public class MyException extends RuntimeException {
         return resultEnum;
     }
 
-
 }
