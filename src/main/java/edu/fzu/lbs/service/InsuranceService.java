@@ -12,7 +12,12 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -94,7 +99,35 @@ public class InsuranceService {
      * @return 保险记录
      */
     public List<Insurance> findByUserId(Long userId) {
-        return insuranceDao.findByUserId(userId);
+        return insuranceDao.findByUserIdOrderByEndTimeDesc(userId);
     }
 
+    /**
+     * 根据用户id判断保险是否到期或即将到期（一个月内到期）
+     *
+     * @param userId 用户id
+     * @return 到期或即将到期的保险记录
+     */
+    public Insurance isExpire(Long userId) {
+        List<Insurance> insuranceList = insuranceDao.findByUserIdOrderByEndTimeDesc(userId);
+        if (insuranceList.isEmpty()) {
+            return null;
+        }
+        Insurance insurance = insuranceList.get(0);
+        Date endTime = insurance.getEndTime();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(endTime);
+        Instant instant = calendar.toInstant();
+        ZoneId zoneId = ZoneId.systemDefault();
+        LocalDate endLocalDate = instant.atZone(zoneId).toLocalDate();
+        LocalDate nowLocalDate = LocalDate.now();
+
+        Period period = Period.between(nowLocalDate, endLocalDate);
+        int months = period.getMonths();
+        if (months < 1) {
+            return insurance;
+        } else {
+            return null;
+        }
+    }
 }

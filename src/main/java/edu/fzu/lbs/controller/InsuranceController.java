@@ -61,4 +61,16 @@ public class InsuranceController {
         insuranceService.deleteById(id);
         return new ResultDTO();
     }
+
+    /**
+     * 根据用户id判断保险是否到期或即将到期（一个月内到期）
+     *
+     * @param userId 用户id
+     * @return 到期或即将到期的保险记录
+     */
+    @GetMapping("/expire")
+    public ResultDTO<Insurance> expire(Long userId) {
+        Insurance insurance = insuranceService.isExpire(userId);
+        return new ResultDTO<>(insurance);
+    }
 }

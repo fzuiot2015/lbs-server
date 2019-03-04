@@ -16,5 +16,5 @@ public interface InsuranceDao extends JpaRepository<Insurance, Long>, JpaSpecifi
      * @param userId 用户id
      * @return 保险记录集合
      */
-    List<Insurance> findByUserId(Long userId);
+    List<Insurance> findByUserIdOrderByEndTimeDesc(Long userId);
 }
