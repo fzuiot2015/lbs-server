@@ -9,6 +9,7 @@ import java.util.List;
 public class HeartBeatService {
 
     private static final double THRESHOLD = 620.0;
+    private long oldTime = 0;
 
     /**
      * 计算心率
@@ -22,8 +23,12 @@ public class HeartBeatService {
 
         for (Integer output : outputs) {
             if (output > THRESHOLD && belowThreshold) {
-                double currentBPM = calculateBPM();
-                beats.add(currentBPM);
+                if (oldTime == 0) {
+                    oldTime = System.currentTimeMillis();
+                } else {
+                    double currentBPM = calculateBPM();
+                    beats.add(currentBPM);
+                }
                 belowThreshold = false;
             } else if (output < THRESHOLD) {
                 belowThreshold = true;
@@ -41,8 +46,8 @@ public class HeartBeatService {
      */
     private double calculateBPM() {
         long newTime = System.currentTimeMillis();
-        long oldTime = 0;
         double diff = newTime - oldTime;
+        oldTime = newTime;
         double currentBPM = 60000 / diff;
         return currentBPM;
     }
