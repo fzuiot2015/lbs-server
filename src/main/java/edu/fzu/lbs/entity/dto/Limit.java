@@ -1,4 +1,4 @@
-package edu.fzu.lbs.entity.po;
+package edu.fzu.lbs.entity.dto;
 
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;

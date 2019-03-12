@@ -69,7 +69,13 @@ public class ResultDTO<T> {
         ResultDTO resultDTO = new ResultDTO();
         resultDTO.setResultEnum(resultEnum);
         return resultDTO;
+    }
 
+    public static ResultDTO error(int status, String message) {
+        ResultDTO resultDTO = new ResultDTO();
+        resultDTO.setStatus(status);
+        resultDTO.setMessage(message);
+        return resultDTO;
     }
 
     /**

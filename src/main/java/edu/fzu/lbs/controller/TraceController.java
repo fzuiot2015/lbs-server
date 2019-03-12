@@ -1,5 +1,6 @@
 package edu.fzu.lbs.controller;
 
+import edu.fzu.lbs.entity.dto.DrivingBehavior;
 import edu.fzu.lbs.entity.dto.ResultDTO;
 import edu.fzu.lbs.service.TraceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +30,9 @@ public class TraceController {
      * @throws IOException
      */
     @RequestMapping("/behavior")
-    public ResultDTO<String> behavior(String entityName) throws IOException {
-        String behavior = traceService.behavior(entityName);
-        return new ResultDTO<>(behavior);
+    public ResultDTO<DrivingBehavior> behavior(String entityName) throws IOException {
+        ResultDTO<DrivingBehavior> resultDTO = traceService.behavior(entityName);
+        return resultDTO;
     }
 
 }
