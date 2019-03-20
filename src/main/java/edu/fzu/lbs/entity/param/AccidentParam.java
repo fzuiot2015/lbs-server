@@ -1,6 +1,7 @@
 package edu.fzu.lbs.entity.param;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -13,16 +14,18 @@ public class AccidentParam {
     /**
      * 用户id
      */
-    Long userId;
+    private Long userId;
 
     /**
      * 时间范围下限
      */
-    Date minTime;
-
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date minTime;
     /**
      * 时间范围上限
      */
-    Date maxTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date maxTime;
+
 
 }
