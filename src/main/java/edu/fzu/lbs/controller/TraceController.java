@@ -1,7 +1,8 @@
 package edu.fzu.lbs.controller;
 
-import edu.fzu.lbs.entity.dto.DrivingBehavior;
+
 import edu.fzu.lbs.entity.dto.ResultDTO;
+import edu.fzu.lbs.entity.po.DrivingBehavior;
 import edu.fzu.lbs.service.TraceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,5 +35,6 @@ public class TraceController {
         ResultDTO<DrivingBehavior> resultDTO = traceService.behavior(entityName);
         return resultDTO;
     }
+
 
 }

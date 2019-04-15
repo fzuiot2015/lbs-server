@@ -3,8 +3,8 @@ package edu.fzu.lbs.service;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import edu.fzu.lbs.entity.dto.DrivingBehavior;
 import edu.fzu.lbs.entity.dto.ResultDTO;
+import edu.fzu.lbs.entity.po.DrivingBehavior;
 import edu.fzu.lbs.util.Constant;
 import edu.fzu.lbs.util.HttpGetUtil;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,6 @@ import java.time.ZoneOffset;
  */
 @Service
 public class TraceService {
-
     public ResultDTO<DrivingBehavior> behavior(String entityName) throws IOException {
 
         ZoneOffset zoneOffset = ZoneOffset.ofHours(8);

@@ -1,5 +1,6 @@
 package edu.fzu.lbs.controller;
 
+import edu.fzu.lbs.entity.dto.LimitMsg;
 import edu.fzu.lbs.entity.dto.ResultDTO;
 import edu.fzu.lbs.service.LimitService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +28,9 @@ public class RemindController {
      * @return 若限行则返回true，否则返回false
      */
     @GetMapping("/limit")
-    public ResultDTO<Boolean> isLimit(@RequestParam String city,
-                                      @RequestParam String plate) {
-        Boolean limited = limitService.isLimited(city, plate);
-        return new ResultDTO<>(limited);
+    public ResultDTO<LimitMsg> isLimit(@RequestParam String city,
+                                       @RequestParam String plate) {
+        LimitMsg limitMsg = limitService.isLimited(city, plate);
+        return new ResultDTO<>(limitMsg);
     }
 }

@@ -33,8 +33,8 @@ public class AnalyseController {
      * @param price     车辆价格
      * @return Series对象集合，可直接用于Echart的Series字段
      */
-    @GetMapping
-    public ResultDTO<List<Series>> get(Integer personNum, Float price) {
+    @GetMapping("/insurance")
+    public ResultDTO<List<Series>> insuranceAnalyse(Integer personNum, Float price) {
         List<Series> seriesList = new ArrayList<>();
         List<InsuranceCompany> insuranceCompanies = insuranceCompanyDao.findAll();
         List<Float> lossList = new ArrayList<>();
@@ -78,5 +78,18 @@ public class AnalyseController {
         seriesList.add(fire);
         seriesList.add(person);
         return new ResultDTO<>(seriesList);
+    }
+
+    @GetMapping("/behavior")
+    public ResultDTO<List<Double>> behaviorAnalyse() {
+        List<Double> list = new ArrayList<>();
+        //TODO:修改为真实数值
+        list.add(73D);
+        list.add(1.56);
+        list.add(1D);
+        list.add(5D);
+        list.add(3D);
+        list.add(2D);
+        return new ResultDTO<>(list);
     }
 }

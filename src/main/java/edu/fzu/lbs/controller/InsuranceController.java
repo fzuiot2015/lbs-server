@@ -66,7 +66,7 @@ public class InsuranceController {
      * 根据用户id判断保险是否到期或即将到期（一个月内到期）
      *
      * @param userId 用户id
-     * @return 到期或即将到期的保险记录
+     * @return 到期或即将到期的保险记录，若保险未到期或即将到期则返回null
      */
     @GetMapping("/expire")
     public ResultDTO<Insurance> expire(Long userId) {

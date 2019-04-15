@@ -1,13 +1,21 @@
-package edu.fzu.lbs.entity.dto;
+package edu.fzu.lbs.entity.po;
 
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
+
+import javax.persistence.*;
 
 /**
  * 驾驶行为
  */
 @Data
+@Entity
+@Table(name = "driving_behavior")
 public class DrivingBehavior {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     /**
      * 行程里程,单位米
      */
