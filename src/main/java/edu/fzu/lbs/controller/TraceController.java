@@ -28,13 +28,16 @@ public class TraceController {
      *
      * @param entityName entity名称，唯一标识
      * @return
-     * @throws IOException
      */
     @RequestMapping("/behavior")
-    public ResultDTO<DrivingBehavior> behavior(String entityName) throws IOException {
-        ResultDTO<DrivingBehavior> resultDTO = traceService.behavior(entityName);
-        return resultDTO;
+    public ResultDTO<DrivingBehavior> behavior(String entityName) {
+        DrivingBehavior drivingBehavior = traceService.behavior(entityName);
+        return new ResultDTO<>(drivingBehavior);
     }
 
+    @RequestMapping("/update")
+    public void update() throws IOException {
+        traceService.updateData();
+    }
 
 }

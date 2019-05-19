@@ -1,9 +1,11 @@
 package edu.fzu.lbs.entity.po;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * 驾驶行为
@@ -15,6 +17,15 @@ public class DrivingBehavior {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    /**
+     * 日期
+     */
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
+    private Date date;
+
+    private String entityName;
 
     /**
      * 行程里程,单位米
@@ -60,4 +71,18 @@ public class DrivingBehavior {
      */
     @SerializedName("harsh_steering_num")
     private int harshSteeringNum;
+
+    public DrivingBehavior() {
+    }
+
+    public DrivingBehavior(double distance, int duration, double averageSpeed, double maxSpeed, int speedingNum, int harshAccelerationNum, int harshBreakingNum, int harshSteeringNum) {
+        this.distance = distance;
+        this.duration = duration;
+        this.averageSpeed = averageSpeed;
+        this.maxSpeed = maxSpeed;
+        this.speedingNum = speedingNum;
+        this.harshAccelerationNum = harshAccelerationNum;
+        this.harshBreakingNum = harshBreakingNum;
+        this.harshSteeringNum = harshSteeringNum;
+    }
 }
