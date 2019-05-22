@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface CheckStepDao extends JpaRepository<CheckStep, Long> {
 
-    @Query(value = "SELECT content FROM check_step WHERE type>=:type ORDER BY step ASC"
+    @Query(value = "SELECT content FROM check_step WHERE type=:type ORDER BY step ASC"
             , nativeQuery = true)
     List<String> findContent(@Param("type") int type);
 }
