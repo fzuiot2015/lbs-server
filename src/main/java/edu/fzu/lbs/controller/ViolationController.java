@@ -44,7 +44,7 @@ public class ViolationController {
      * @param violation 违章记录对象
      * @return
      */
-    @PutMapping
+    @PostMapping
     public ResultDTO put(@RequestBody @Valid Violation violation) {
         violationService.update(violation);
         return new ResultDTO();

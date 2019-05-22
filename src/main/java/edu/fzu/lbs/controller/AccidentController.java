@@ -44,7 +44,7 @@ public class AccidentController {
      * @param accident 事故记录对象
      * @return
      */
-    @PutMapping
+    @PostMapping
     public ResultDTO put(@RequestBody @Valid Accident accident) {
         accidentService.update(accident);
         return new ResultDTO();

@@ -71,7 +71,7 @@ public class UserController {
      * @param user 用户对象
      * @return
      */
-    @PutMapping
+    @PostMapping
     public ResultDTO put(@RequestBody @Valid User user) {
         userService.update(user);
         return new ResultDTO();

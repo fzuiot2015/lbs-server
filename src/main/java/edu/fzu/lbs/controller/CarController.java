@@ -54,7 +54,7 @@ public class CarController {
      * @param car 车辆对象
      * @return
      */
-    @PutMapping
+    @PostMapping
     public ResultDTO put(@RequestBody Car car) {
         carService.update(car);
         return new ResultDTO();

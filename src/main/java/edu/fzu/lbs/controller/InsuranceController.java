@@ -44,7 +44,7 @@ public class InsuranceController {
      * @param insurance 保险记录对象
      * @return
      */
-    @PutMapping
+    @PostMapping
     public ResultDTO put(@RequestBody @Valid Insurance insurance) {
         insuranceService.update(insurance);
         return new ResultDTO();
