@@ -1,10 +1,8 @@
 package edu.fzu.lbs.controller;
 
 import edu.fzu.lbs.entity.dto.ResultDTO;
-import edu.fzu.lbs.entity.param.AccidentParam;
 import edu.fzu.lbs.entity.param.PageParam;
 import edu.fzu.lbs.entity.param.ViolationParam;
-import edu.fzu.lbs.entity.po.Accident;
 import edu.fzu.lbs.entity.po.Violation;
 import edu.fzu.lbs.service.ViolationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +28,9 @@ public class ViolationController {
     /**
      * 根据条件查询违章记录集合
      *
-     * @param violationParam 事故记录查询参数
-     * @param pageParam     分页参数
-     * @return 事故记录集合
+     * @param violationParam 违章记录查询参数
+     * @param pageParam      分页参数
+     * @return 违章记录集合
      */
     @GetMapping
     public ResultDTO<List<Violation>> get(ViolationParam violationParam, PageParam pageParam) {

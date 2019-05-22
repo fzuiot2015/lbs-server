@@ -13,7 +13,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 /**
- * 违章记录接口
+ * 年检记录接口
  */
 @RestController
 @RequestMapping("/yearly")
@@ -39,9 +39,9 @@ public class YearlyInspectionController {
     }
 
     /**
-     * 保存或更新一条违章记录
+     * 保存或更新一条年检记录
      *
-     * @param yearlyInspection 违章记录对象
+     * @param yearlyInspection 年检记录对象
      * @return
      */
     @PutMapping
@@ -51,9 +51,9 @@ public class YearlyInspectionController {
     }
 
     /**
-     * 根据id删除一条违章记录
+     * 根据id删除一条年检记录
      *
-     * @param id 违章记录id
+     * @param id 年检记录id
      * @return
      */
     @DeleteMapping("/{id}")
