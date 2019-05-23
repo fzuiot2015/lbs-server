@@ -15,9 +15,9 @@ public class PageParam {
     private Integer pageNum = 0;
 
     /**
-     * 分页容量,默认为5
+     * 分页容量,默认为10
      */
-    private Integer pageSize = 5;
+    private Integer pageSize = 10;
 
     /**
      * 转换为PageRequest对象
