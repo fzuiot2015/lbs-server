@@ -52,4 +52,9 @@ public class Accident {
      * 详情描述
      */
     private String description;
+
+    /**
+     * 图片地址
+     */
+    private String photoUrl;
 }
