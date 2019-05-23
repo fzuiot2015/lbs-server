@@ -2,8 +2,10 @@ package edu.fzu.lbs.controller;
 
 import edu.fzu.lbs.dao.InsuranceCompanyDao;
 import edu.fzu.lbs.entity.dto.ResultDTO;
+import edu.fzu.lbs.entity.po.DrivingBehavior;
 import edu.fzu.lbs.entity.po.InsuranceCompany;
 import edu.fzu.lbs.entity.vo.Series;
+import edu.fzu.lbs.service.TraceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +26,13 @@ public class AnalyseController {
     @Autowired
     public void setInsuranceCompanyDao(InsuranceCompanyDao insuranceCompanyDao) {
         this.insuranceCompanyDao = insuranceCompanyDao;
+    }
+
+    private TraceService traceService;
+
+    @Autowired
+    public void setTraceService(TraceService traceService) {
+        this.traceService = traceService;
     }
 
     /**
@@ -81,15 +90,15 @@ public class AnalyseController {
     }
 
     @GetMapping("/behavior")
-    public ResultDTO<List<Double>> behaviorAnalyse() {
+    public ResultDTO<List<Double>> behaviorAnalyse(String entityName) {
+        DrivingBehavior behavior = traceService.behavior(entityName);
         List<Double> list = new ArrayList<>();
-        //TODO:修改为真实数值
-        list.add(73D);
-        list.add(1.56);
-        list.add(1D);
-        list.add(5D);
-        list.add(3D);
-        list.add(2D);
+        list.add(behavior.getDistance());
+        list.add(behavior.getAverageSpeed());
+        list.add((double) behavior.getSpeedingNum());
+        list.add((double) behavior.getHarshAccelerationNum());
+        list.add((double) behavior.getHarshBreakingNum());
+        list.add((double) behavior.getHarshSteeringNum());
         return new ResultDTO<>(list);
     }
 }
