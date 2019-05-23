@@ -11,3 +11,7 @@ spring:
 #    time-zone: GMT+8
 server:
   port: 8081
+
+lbs:
+  image-path: file:/C:/temp/
+  upload-path: C:\temp\
