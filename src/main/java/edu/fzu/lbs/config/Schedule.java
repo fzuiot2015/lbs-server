@@ -17,9 +17,15 @@ public class Schedule {
         this.traceService = traceService;
     }
 
-    @Scheduled(cron = "0 20 22 * * ?")
+    /**
+     * 定时任务
+     *  秒 0-59   分钟 0-59  小时 0-23  日期 1-31  月份 1-12  星期 1-7
+     *  *任意值    ?任意可能的值
+     * @throws IOException
+     */
+    @Scheduled(cron = "0 0 0 * * ?")
     public void traceSchedule() throws IOException {
-        System.out.println("test");
+        System.out.println("traceService updateData");
         traceService.updateData();
     }
 }
