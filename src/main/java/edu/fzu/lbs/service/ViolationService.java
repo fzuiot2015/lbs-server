@@ -29,11 +29,11 @@ public class ViolationService {
     }
 
     /**
-     * 根据条件查询事故记录
+     * 根据条件查询违章记录
      *
-     * @param violationParam 事故查询参数
+     * @param violationParam 违章查询参数
      * @param pageParam     分页参数
-     * @return 事故记录分页对象
+     * @return 违章记录分页对象
      */
     public Page<Violation> getList(ViolationParam violationParam, PageParam pageParam) {
         Pageable pageable = pageParam.toPageRequest();
@@ -72,7 +72,7 @@ public class ViolationService {
     }
 
     /**
-     * 保存或更新一条事故记录
+     * 保存或更新一条违章记录
      *
      * @param violation 违章记录对象
      */
@@ -88,15 +88,4 @@ public class ViolationService {
     public void deleteById(Long id) {
         violationDao.deleteById(id);
     }
-
-    /**
-     * 根据用户id
-     *
-     * @param userId 用户id
-     * @return 事故记录集合
-     */
-    public List<Violation> findByUserId(Long userId) {
-        return violationDao.findByUserId(userId);
-    }
-
 }
