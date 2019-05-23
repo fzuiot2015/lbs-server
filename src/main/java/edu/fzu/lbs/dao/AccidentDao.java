@@ -16,5 +16,5 @@ public interface AccidentDao extends JpaRepository<Accident, Long>, JpaSpecifica
      * @param userId 用户id
      * @return 事故记录集合
      */
-    List<Accident> findByUserId(Long userId);
+    List<Accident> findByUserIdOrderByTimeDesc(Long userId);
 }

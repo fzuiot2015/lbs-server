@@ -96,7 +96,7 @@ public class AccidentService {
      * @return 事故记录集合
      */
     public List<Accident> findByUserId(Long userId) {
-        return accidentDao.findByUserId(userId);
+        return accidentDao.findByUserIdOrderByTimeDesc(userId);
     }
 
 }
