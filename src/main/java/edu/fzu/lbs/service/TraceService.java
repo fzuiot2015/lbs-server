@@ -5,18 +5,25 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import edu.fzu.lbs.dao.DrivingBehaviorDao;
 import edu.fzu.lbs.dao.UserDao;
+import edu.fzu.lbs.entity.param.PageParam;
+import edu.fzu.lbs.entity.param.TraceParam;
 import edu.fzu.lbs.entity.po.DrivingBehavior;
 import edu.fzu.lbs.entity.po.User;
 import edu.fzu.lbs.util.Constant;
 import edu.fzu.lbs.util.HttpGetUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Predicate;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -111,8 +118,8 @@ public class TraceService {
      * 更新一条数据
      *
      * @param entityName 百度鹰眼终端标识
-     * @param startTime 开始时间
-     * @param endTime 结束时间
+     * @param startTime  开始时间
+     * @param endTime    结束时间
      * @throws IOException
      */
     private void updateOneData(String entityName, Long startTime, Long endTime) throws IOException {
@@ -132,5 +139,66 @@ public class TraceService {
             drivingBehavior.setDate(new Date());
             drivingBehaviorDao.save(drivingBehavior);
         }
+    }
+
+    /**
+     * 保存或更新一条记录
+     *
+     * @param drivingBehavior 驾驶行为记录对象
+     */
+    public void update(DrivingBehavior drivingBehavior) {
+        drivingBehaviorDao.saveAndFlush(drivingBehavior);
+    }
+
+    /**
+     * 根据id删除驾驶行为记录
+     *
+     * @param id 驾驶行为记录id
+     */
+    public void deleteById(Long id) {
+        drivingBehaviorDao.deleteById(id);
+    }
+
+    /**
+     * 根据条件查询驾驶行为记录
+     *
+     * @param traceParam 驾驶行为查询参数
+     * @param pageParam  分页参数
+     * @return 驾驶行为记录分页对象
+     */
+    public Page<DrivingBehavior> getList(TraceParam traceParam, PageParam pageParam) {
+        Pageable pageable = pageParam.toPageRequest();
+
+        //若查询参数为空则查询所有事故记录
+        if (traceParam == null) {
+            return drivingBehaviorDao.findAll(pageable);
+        }
+
+        //动态添加查询参数，只有当查询参数不为空时才添加到查询条件里
+        Specification<DrivingBehavior> specification = (Specification<DrivingBehavior>) (root, criteriaQuery, criteriaBuilder) -> {
+            List<Predicate> predicateList = new ArrayList<>();
+
+            String entityName = traceParam.getEntityName();
+            if (entityName != null && entityName.isEmpty()) {
+                Path<Long> entityNamePath = root.get("entityName");
+                predicateList.add(criteriaBuilder.equal(entityNamePath, entityName));
+            }
+
+            Path<Date> datePath = root.get("date");
+            Date minTime = traceParam.getMinDate();
+            if (minTime != null) {
+                predicateList.add(criteriaBuilder.greaterThanOrEqualTo(datePath, minTime));
+            }
+            Date maxTime = traceParam.getMinDate();
+            if (maxTime != null) {
+                predicateList.add(criteriaBuilder.lessThanOrEqualTo(datePath, maxTime));
+            }
+
+            int predicateSize = predicateList.size();
+            Predicate[] predicateArray = predicateList.toArray(new Predicate[predicateSize]);
+            return criteriaBuilder.and(predicateArray);
+        };
+
+        return drivingBehaviorDao.findAll(specification, pageable);
     }
 }
