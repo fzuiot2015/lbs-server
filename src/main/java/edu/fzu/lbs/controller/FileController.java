@@ -26,7 +26,7 @@ public class FileController {
      * @param file 图片
      * @return
      */
-    @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/upload")
     public ResultDTO<String> fileUpload(@RequestParam MultipartFile file) throws IOException {
         if (file.isEmpty()) {
             return ResultDTO.error(ResultEnum.FORMAT_ERROR);
@@ -38,13 +38,13 @@ public class FileController {
         }
 */
 
-        // 获取图片的文件名
+/*        // 获取图片的文件名
         String fileName = file.getOriginalFilename();
         // 获取图片的扩展名
-        String extensionName = fileName.substring(fileName.lastIndexOf('.'));
+        String extensionName = fileName.substring(fileName.lastIndexOf('.'));*/
 
         // 新的图片文件名 = 获取时间戳+"."图片扩展名
-        String newFileName = System.currentTimeMillis() + "." + extensionName;
+        String newFileName = System.currentTimeMillis() + ".jpg";
 
         String path = webUploadPath + newFileName;
 
