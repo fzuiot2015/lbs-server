@@ -55,13 +55,19 @@ public class UserController {
                               @RequestParam String password,
                               @RequestParam String name,
                               @RequestParam String phone,
-                              @RequestParam String driverLicense) {
+                              @RequestParam String driverLicense,
+                              String bloodGroup,
+                              String medicalHistory,
+                              String allergicHistory) {
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);
         user.setName(name);
         user.setPhone(phone);
         user.setDriverLicense(driverLicense);
+        user.setDriverLicense(bloodGroup);
+        user.setMedicalHistory(medicalHistory);
+        user.setAllergicHistory(allergicHistory);
         return userService.register(user);
     }
 
@@ -125,5 +131,11 @@ public class UserController {
     public ResultDTO<User> getByUsername(String username) {
         User user = userService.getByUsername(username);
         return new ResultDTO<>(user);
+    }
+
+    @GetMapping("/jwt")
+    public ResultDTO jwt(String token) {
+        userService.jwt(token);
+        return new ResultDTO();
     }
 }

@@ -15,6 +15,16 @@ public class InsuranceParam {
     private Long userId;
 
     /**
+     * 保险公司
+     */
+    private String insurer;
+
+    /**
+     * 保单号
+     */
+    private String policyId;
+
+    /**
      * 开始时间
      */
     private Date startTime;

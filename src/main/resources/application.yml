@@ -5,6 +5,10 @@ spring:
     password: 12345
   jpa:
     database-platform: org.hibernate.dialect.MySQL5Dialect
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
 #    show-sql: true
 #  jackson:
 #    date-format: yyyy-MM-dd HH:mm:ss

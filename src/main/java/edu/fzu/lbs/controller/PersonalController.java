@@ -10,10 +10,10 @@ import edu.fzu.lbs.service.CarService;
 import edu.fzu.lbs.service.InsuranceService;
 import edu.fzu.lbs.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -98,4 +98,33 @@ public class PersonalController {
         List<Accident> accidentList = accidentService.findByUserId(userId);
         return new ResultDTO<>(accidentList);
     }
+
+    /**
+     * 提交一条事故记录
+     *
+     * @return
+     */
+    @PostMapping("/accident")
+    public ResultDTO put(@RequestParam Long userId,
+                         Date time,
+                         Float lat,
+                         Float lng,
+                         String address,
+                         String description,
+                         String photoUrl) {
+        if (time == null) {
+            time = new Date();
+        }
+        Accident accident = new Accident();
+        accident.setUserId(userId);
+        accident.setTime(time);
+        accident.setLat(lat);
+        accident.setLng(lng);
+        accident.setAddress(address);
+        accident.setDescription(description);
+        accident.setPhotoUrl(photoUrl);
+        accidentService.update(accident);
+        return new ResultDTO();
+    }
+
 }

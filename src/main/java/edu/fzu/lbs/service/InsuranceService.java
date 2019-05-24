@@ -57,6 +57,18 @@ public class InsuranceService {
                 predicateList.add(criteriaBuilder.equal(userIdPath, userId));
             }
 
+            Path<String> insurerPath = root.get("insurer");
+            String insurer = insuranceParam.getInsurer();
+            if (insurer != null) {
+                predicateList.add(criteriaBuilder.equal(insurerPath, insurer));
+            }
+
+            Path<String> policyIdPath = root.get("policyId");
+            String policyId = insuranceParam.getPolicyId();
+            if (policyId != null) {
+                predicateList.add(criteriaBuilder.equal(policyIdPath, policyId));
+            }
+
             Path<Date> timePath = root.get("startTime");
             Date startTime = insuranceParam.getStartTime();
             if (startTime != null) {

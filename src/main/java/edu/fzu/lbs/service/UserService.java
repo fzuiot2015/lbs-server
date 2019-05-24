@@ -162,4 +162,18 @@ public class UserService {
         }
     }
 
+
+    public void jwt(String token) {
+        if (token == null) {
+            throw new MyException(ResultEnum.MISSING_TOKEN);
+        }
+        String username = JwtTokenUtil.getUsername(token);
+        Optional<User> userOptional = userDao.findByUsername(username);
+        if (!userOptional.isPresent()) {
+            throw new MyException(ResultEnum.INCORRECT_TOKEN);
+        }
+        User user = userOptional.get();
+        String password = user.getPassword();
+        JwtTokenUtil.verifyToken(token, username, password);
+    }
 }
