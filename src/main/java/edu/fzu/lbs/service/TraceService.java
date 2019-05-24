@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
@@ -57,9 +58,14 @@ public class TraceService {
         Pageable pageable = PageRequest.of(0, 7);
         List<DrivingBehavior> drivingBehaviorList = drivingBehaviorDao.findByEntityNameOrderByDateDesc(entityName, pageable);
 
+        DecimalFormat decimalFormat = new DecimalFormat("#.00");
+
         double distance = drivingBehaviorList.stream()
                 .mapToDouble(DrivingBehavior::getDistance)
                 .sum();
+
+        String distanceStr = decimalFormat.format(distance);
+
 
         int duration = drivingBehaviorList.stream()
                 .mapToInt(DrivingBehavior::getDuration)
@@ -69,9 +75,13 @@ public class TraceService {
                 .mapToDouble(DrivingBehavior::getAverageSpeed)
                 .average().orElse(0);
 
+        String averageSpeedStr = decimalFormat.format(averageSpeed);
+
         double maxSpeed = drivingBehaviorList.stream().
                 mapToDouble(DrivingBehavior::getMaxSpeed)
                 .max().orElse(0);
+
+        String maxSpeedStr = decimalFormat.format(maxSpeed);
 
         int speedingNum = drivingBehaviorList.stream()
                 .mapToInt(DrivingBehavior::getSpeedingNum)
@@ -89,8 +99,9 @@ public class TraceService {
                 .mapToInt(DrivingBehavior::getHarshBreakingNum)
                 .sum();
 
-        DrivingBehavior drivingBehavior = new DrivingBehavior(distance, duration, averageSpeed,
-                maxSpeed, speedingNum, harshAccelerationNum, harshBreakingNum, harshSteeringNum);
+        DrivingBehavior drivingBehavior = new DrivingBehavior(Double.valueOf(distanceStr),
+                duration, Double.valueOf(averageSpeedStr), Double.valueOf(maxSpeedStr),
+                speedingNum, harshAccelerationNum, harshBreakingNum, harshSteeringNum);
 
         return drivingBehavior;
     }

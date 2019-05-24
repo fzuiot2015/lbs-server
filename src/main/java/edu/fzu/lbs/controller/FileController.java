@@ -3,7 +3,6 @@ package edu.fzu.lbs.controller;
 import edu.fzu.lbs.config.exception.ResultEnum;
 import edu.fzu.lbs.entity.dto.ResultDTO;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
